@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <style>
+      html {
+        font-size: 10px;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: Helvetica, sans-serif;
+      }
+
+      html, body {
+       background: rgba(0, 0, 0, 0)
+      }
+
+      .container {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #222831;
+      }
+      .container #app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container #app > * {
+        margin-bottom: 2rem;
+      }
+      .container .timer {
+        font-size: 6rem;
+        color: #EEEEEE;
+      }
+      .container .controls {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+      }
+      .container .controls > * {
+        color: #FD7014;
+        transition: 0.1s ease;
+      }
+      .container .controls > *:hover {
+        cursor: pointer;
+        -webkit-transform: scale(1.2);
+                transform: scale(1.2);
+      }
+      .container .input input {
+        background-color: #393E46;
+        border: none;
+        font-size: 2rem;
+        padding: 1em;
+        text-align: center;
+        color: #EEEEEE;
+      }
+      .container .input .fade-enter-active, .container .input .fade-leave-active {
+        transition: opacity .5s;
+      }
+      .container .input .fade-enter, .container .input .fade-leave-to {
+        opacity: 0;
+      }
+
+      .timer-finished {
+        animation: blink-animation 1s steps(60, start) infinite;
+      }
+      @keyframes blink-animation {
+        to {
+          color: red;
+        }
+      }
+      
+      
+    </style>
+
+</head>
+<body>
+  <div class="container">
+    <div id="app">
+      <div :class="'timer ' + (totalTime === 0 ? 'timer-finished': '')">
+        <span class="minute">{{ minutes }}</span>
+        <span>:</span>
+        <span class="seconds">{{ seconds }}</span>
+      </div>
+      <div class="controls">
+        <div class="start" v-if="!timer" @click="startTimer">
+          <i data-feather="play" ></i>
+        </div>
+        <div class="pause"  v-if="timer" @click="stopTimer">
+          <i data-feather="square"></i>
+        </div>
+        <div class="stop" v-if="resetButton" @click="resetTimer">
+          <i data-feather="rotate-cw"></i>
+        </div>
+        <div class="edit" v-if="!timer" @click="editTimer">
+          <i data-feather="edit-2"></i>
+        </div>
+      </div>
+      <div class="input">
+        <transition name="fade">
+          <input type="text" v-if="edit" v-model="userTime">
+        </transition>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+    require('./renderer.js');
+</script>
+</html>

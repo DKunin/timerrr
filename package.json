@@ -1,0 +1,24 @@
+{
+  "name": "timerrr",
+  "version": "0.0.1",
+  "private": false,
+  "main": "main.js",
+  "bugs": {
+    "url": "https://github.com/dkunin/timerrr/issues"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "rm -rf ./build/*darwin*; electron-packager . Timerrr --out=./build --platform=darwin --arch=x64 --icon=./icon.icns --overwrite",
+    "package": "create-dmg 'build/Timerrr-darwin-x64/Timerrr.app' && mv ./*.dmg ./build"
+  },
+  "homepage": "https://github.com/dkunin/timerrr",
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.11",
+    "electron-packager": "^13.0.0"
+  },
+  "dependencies": {
+    "create-dmg": "^3.2.0"
+  }
+}
