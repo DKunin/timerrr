@@ -1,6 +1,6 @@
 {
   "name": "timerrr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": false,
   "main": "main.js",
   "bugs": {
@@ -9,6 +9,7 @@
   "scripts": {
     "start": "electron .",
     "build": "rm -rf ./build/*darwin*; electron-packager . Timerrr --out=./build --platform=darwin --arch=x64 --icon=./icon.icns --overwrite",
+    "build:win": "rm -rf ./build/*win32*; NODE_ENV=production electron-packager . Timerrr --out=./build --platform=win32 --overwrite",
     "package": "create-dmg 'build/Timerrr-darwin-x64/Timerrr.app' && mv ./*.dmg ./build"
   },
   "homepage": "https://github.com/dkunin/timerrr",
