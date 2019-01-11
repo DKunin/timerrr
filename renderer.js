@@ -1,41 +1,3 @@
-// const fs = require('fs');
-// const util = require('util');
-// const anyjson = require('any-json');
-// const readFile = util.promisify(fs.readFile);
-
-// Vue.filter('modificator', function(value) {
-//     return Math.floor((value - 10) / 2);
-// });
-
-// Vue.filter('abilityMod', function(value, proficiency) {
-//     console.log(value, proficiency);
-//     return value + proficiency;
-// });
-
-// new Vue({
-//     el: '#app',
-//     mounted() {
-//         this.updateData();
-//     },
-//     methods: {
-//         updateData() {
-//             readFile('./Cleric Ozmozis.yaml')
-//                 .then(result => result.toString())
-//                 .then(async result => {
-//                     this.char = await anyjson.decode(result, 'yaml');
-//                     console.log(this.char);
-//                 });
-//         }
-//     },
-//     template: '#char',
-//     data() {
-//         return {
-//             char: { weapons: {} , HP: {}}
-//         };
-//     },
-//     computed: {}
-// });
-
 feather.replace();
 
 const app = new Vue({
@@ -49,45 +11,45 @@ const app = new Vue({
         userTime: 15
     },
     methods: {
-        startTimer: function() {
+        startTimer() {
             this.timer = setInterval(() => this.countdown(), 1000); //1000ms = 1 second
             this.resetButton = true;
             this.edit = false;
         },
-        stopTimer: function() {
+        stopTimer() {
             clearInterval(this.timer);
             this.timer = null;
             this.resetButton = true;
         },
-        resetTimer: function() {
+        resetTimer() {
             this.totalTime = this.userTime * 60;
             clearInterval(this.timer);
             this.timer = null;
             this.resetButton = false;
         },
-        editTimer: function() {
+        editTimer() {
             if (this.edit) {
                 this.totalTime = this.userTime * 60;
             }
             this.edit = !this.edit;
         },
-        padTime: function(time) {
+        padTime(time) {
             return (time < 10 ? "0" : "") + time;
         },
-        countdown: function() {
+        countdown() {
             if (this.totalTime > 0) {
                 this.totalTime--;
             } else {
-                this.stopTimer()
+                this.stopTimer();
             }
         }
     },
     computed: {
-        minutes: function() {
+        minutes() {
             const minutes = Math.floor(this.totalTime / 60);
             return this.padTime(minutes);
         },
-        seconds: function() {
+        seconds() {
             const seconds = this.totalTime - this.minutes * 60;
             return this.padTime(seconds);
         }

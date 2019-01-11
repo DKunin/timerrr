@@ -9,13 +9,14 @@
     <script type="text/javascript" src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <style>
       html {
-        font-size: 10px;
+        font-size: 18px;
       }
 
       body {
         padding: 0;
         margin: 0;
         font-family: Helvetica, sans-serif;
+        color: white;
       }
 
       html, body {
@@ -35,16 +36,15 @@
         flex-direction: column;
         align-items: center;
       }
-      .container #app > * {
-        margin-bottom: 2rem;
+
+      .timer {
+        font-size: 6em;
       }
-      .container .timer {
-        font-size: 6rem;
-        color: #EEEEEE;
-      }
+
       .container .controls {
         display: flex;
         justify-content: space-evenly;
+        font-size: 1em;
         width: 100%;
       }
       .container .controls > * {
@@ -56,13 +56,17 @@
         -webkit-transform: scale(1.2);
                 transform: scale(1.2);
       }
+      .container .input {
+        display: inline-block;
+      }
       .container .input input {
         background-color: #393E46;
         border: none;
-        font-size: 2rem;
-        padding: 1em;
+        font-size: inherit;
         text-align: center;
         color: #EEEEEE;
+        display: inline-block;
+        width: 1.5em;
       }
       .container .input .fade-enter-active, .container .input .fade-leave-active {
         transition: opacity .5s;
@@ -74,12 +78,31 @@
       .timer-finished {
         animation: blink-animation 1s steps(60, start) infinite;
       }
+
       @keyframes blink-animation {
         to {
           color: red;
         }
       }
-      
+
+      @media screen and (max-height:400px){
+         html {
+           font-size: 18px; 
+         }
+      }
+
+      @media screen and (max-height:200px){
+         html {
+           font-size: 12px; 
+         }
+      }
+
+      @media screen and (max-height:100px){
+         html {
+           font-size: 10px; 
+         }
+      }
+
       
     </style>
 
@@ -88,7 +111,10 @@
   <div class="container">
     <div id="app">
       <div :class="'timer ' + (totalTime === 0 ? 'timer-finished': '')">
-        <span class="minute">{{ minutes }}</span>
+        <span class="minute" v-if="!edit">{{ minutes }}</span>
+        <div class="input minute" v-if="edit">
+          <input class="minute" type="text"  v-model="userTime" @blur="editTimer">
+        </div>
         <span>:</span>
         <span class="seconds">{{ seconds }}</span>
       </div>
@@ -108,7 +134,7 @@
       </div>
       <div class="input">
         <transition name="fade">
-          <input type="text" v-if="edit" v-model="userTime">
+          
         </transition>
       </div>
     </div>
